@@ -18,8 +18,11 @@
 #include "IDebugProbe.hpp"
 #include "IFileHandler.hpp"
 #include "ImguiPlugins.hpp"
-#include "JlinkDebugProbe.hpp"
-#include "JlinkTraceProbe.hpp"
+
+//#include "JlinkDebugProbe.hpp"
+//#include "JlinkTraceProbe.hpp"
+#include "NgspiceTraceProbe.hpp"
+
 #include "Plot.hpp"
 #include "PlotGroupHandler.hpp"
 #include "Popup.hpp"
@@ -58,14 +61,18 @@ class Gui
 	ViewerDataHandler* viewerDataHandler;
 	TraceDataHandler* traceDataHandler;
 
-	std::shared_ptr<IDebugProbe> stlinkProbe;
-	std::shared_ptr<IDebugProbe> jlinkProbe;
+	//std::shared_ptr<IDebugProbe> stlinkProbe;
+	//std::shared_ptr<IDebugProbe> jlinkProbe;
+	std::shared_ptr<IDebugProbe> ngspiceProbe;
+	
 	std::shared_ptr<IDebugProbe> debugProbeDevice;
 	std::vector<std::string> devicesList{};
 	const std::string noDevices = "No debug probes found!";
 
-	std::shared_ptr<ITraceProbe> stlinkTraceProbe;
-	std::shared_ptr<ITraceProbe> jlinkTraceProbe;
+	//std::shared_ptr<ITraceProbe> stlinkTraceProbe;
+	//std::shared_ptr<ITraceProbe> jlinkTraceProbe;
+	std::shared_ptr<ITraceProbe> ngspiceTraceProbe;
+
 	std::shared_ptr<ITraceProbe> traceProbeDevice;
 
 	std::atomic<bool>& done;

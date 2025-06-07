@@ -8,15 +8,23 @@
 #include "ITraceProbe.hpp"
 
 /* TODO refactor whole config and persistent storage handling */
-ConfigHandler::ConfigHandler(const std::string& configFilePath, PlotHandler* plotHandler, PlotHandler* tracePlotHandler, PlotGroupHandler* plotGroupHandler, VariableHandler* variableHandler, ViewerDataHandler* viewerDataHandler, TraceDataHandler* traceDataHandler, spdlog::logger* logger)
-	: configFilePath(configFilePath),
-	  plotHandler(plotHandler),
-	  tracePlotHandler(tracePlotHandler),
-	  plotGroupHandler(plotGroupHandler),
-	  variableHandler(variableHandler),
-	  viewerDataHandler(viewerDataHandler),
-	  traceDataHandler(traceDataHandler),
-	  logger(logger)
+ConfigHandler::ConfigHandler(
+	const std::string&  configFilePath,
+	PlotHandler*        plotHandler,
+	PlotHandler*        tracePlotHandler,
+	PlotGroupHandler*   plotGroupHandler,
+	VariableHandler*    variableHandler,
+	ViewerDataHandler*  viewerDataHandler,
+	TraceDataHandler*   traceDataHandler,
+	spdlog::logger*     logger
+) : configFilePath(configFilePath),
+	plotHandler(plotHandler),
+	tracePlotHandler(tracePlotHandler),
+	plotGroupHandler(plotGroupHandler),
+	variableHandler(variableHandler),
+	viewerDataHandler(viewerDataHandler),
+	traceDataHandler(traceDataHandler),
+	logger(logger)
 {
 	ini = std::make_unique<mINI::INIStructure>();
 	file = std::make_unique<mINI::INIFile>(configFilePath);

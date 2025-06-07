@@ -25,6 +25,21 @@ if(nfd_PLATFORM STREQUAL PLATFORM_LINUX)
   endif()
 endif()
 
+if(nfd_PLATFORM STREQUAL PLATFORM_BSD)
+  find_package(PkgConfig REQUIRED)
+  # for Linux, we support GTK3 and xdg-desktop-portal
+  #option(NFD_PORTAL "Use xdg-desktop-portal instead of GTK" OFF)
+  if(NOT NFD_PORTAL)
+    pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
+    message("Using GTK version: ${GTK3_VERSION}")
+    list(APPEND SOURCE_FILES nfd_gtk.cpp)
+  #else()
+  #  pkg_check_modules(DBUS REQUIRED dbus-1)
+  #  message("Using DBUS version: ${DBUS_VERSION}")
+  #  list(APPEND SOURCE_FILES nfd_portal.cpp)
+  endif()
+endif()
+
 if(nfd_PLATFORM STREQUAL PLATFORM_MACOS)
   # For setting the filter list, macOS introduced allowedContentTypes in version 11.0 and deprecated allowedFileTypes in 12.0.
   # By default (set to ON), NFDe will use allowedContentTypes when targeting macOS >= 11.0.
@@ -103,6 +118,10 @@ endif()
 if(nfd_COMPILER STREQUAL COMPILER_CLANGCL)
   string(REPLACE "/EHsc" "/EHs-c-" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
   string(REPLACE "/GR" "/GR-" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+endif()
+
+if(nfd_COMPILER STREQUAL COMPILER_CLANG)
+  target_compile_options(${TARGET_NAME} PRIVATE -nostdlib -fno-exceptions -fno-rtti)
 endif()
 
 if(nfd_COMPILER STREQUAL COMPILER_GNU)

@@ -70,7 +70,8 @@ void Gui::drawDebugProbes()
 	GuiHelper::drawTextAlignedToSize("Debug probe:", alignment);
 	ImGui::SameLine();
 
-	const char* debugProbes[] = {"STLINK", "JLINK"};
+	// NGSPICE //const char* debugProbes[] = {"STLINK", "JLINK"};
+	const char* debugProbes[] = {"NGSPICE"};
 	IDebugProbe::DebugProbeSettings probeSettings = viewerDataHandler->getProbeSettings();
 	int32_t debugProbe = probeSettings.debugProbe;
 

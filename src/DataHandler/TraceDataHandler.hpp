@@ -29,7 +29,15 @@ class TraceDataHandler : public DataHandlerBase
 		std::string logFilePath = "";
 	} Settings;
 
-	TraceDataHandler(PlotGroupHandler* plotGroupHandler, VariableHandler* variableHandler, PlotHandler* plotHandler, PlotHandler* tracePlotHandler, std::atomic<bool>& done, std::mutex* mtx, spdlog::logger* logger);
+	TraceDataHandler(
+		PlotGroupHandler*	plotGroupHandler,
+		VariableHandler*	variableHandler,
+		PlotHandler*		plotHandler,
+		PlotHandler*		tracePlotHandler,
+		std::atomic<bool>&	done,
+		std::mutex*			mtx,
+		spdlog::logger* 	logger
+	);
 	~TraceDataHandler();
 
 	TraceReader::TraceIndicators getTraceIndicators() const;
