@@ -5,8 +5,8 @@
 #include <memory>
 #include <string>
 
-#include "JlinkDebugProbe.hpp"
-#include "StlinkDebugProbe.hpp"
+//#include "JlinkDebugProbe.hpp"
+//#include "StlinkDebugProbe.hpp"
 
 ViewerDataHandler::ViewerDataHandler(PlotGroupHandler* plotGroupHandler, VariableHandler* variableHandler, PlotHandler* plotHandler, PlotHandler* tracePlotHandler, std::atomic<bool>& done, std::mutex* mtx, spdlog::logger* logger) : DataHandlerBase(plotGroupHandler, variableHandler, plotHandler, tracePlotHandler, done, mtx, logger)
 {

@@ -8,7 +8,7 @@
 
 #include "DataHandlerBase.hpp"
 #include "Plot.hpp"
-#include "StlinkTraceProbe.hpp"
+//#include "StlinkTraceProbe.hpp"
 #include "TraceReader.hpp"
 #include "spdlog/spdlog.h"
 

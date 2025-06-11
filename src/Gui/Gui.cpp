@@ -11,7 +11,7 @@
 
 #include "PlotHandler.hpp"
 #include "Statistics.hpp"
-#include "StlinkDebugProbe.hpp"
+//#include "StlinkDebugProbe.hpp"
 #include "glfw3.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
@@ -96,14 +96,16 @@ void Gui::mainThread(std::string externalPath)
 
 	fileHandler->init();
 
-	jlinkProbe = std::make_shared<JlinkDebugProbe>(logger);
-	stlinkProbe = std::make_shared<StlinkDebugProbe>(logger);
-	debugProbeDevice = stlinkProbe;
+	//jlinkProbe = std::make_shared<JlinkDebugProbe>(logger);
+	//stlinkProbe = std::make_shared<StlinkDebugProbe>(logger);
+	//debugProbeDevice = stlinkProbe;
+
 	viewerDataHandler->setDebugProbe(debugProbeDevice);
 
-	jlinkTraceProbe = std::make_shared<JlinkTraceProbe>(logger);
-	stlinkTraceProbe = std::make_shared<StlinkTraceProbe>(logger);
-	traceProbeDevice = stlinkTraceProbe;
+	//jlinkTraceProbe = std::make_shared<JlinkTraceProbe>(logger);
+	//stlinkTraceProbe = std::make_shared<StlinkTraceProbe>(logger);
+	//traceProbeDevice = stlinkTraceProbe;
+
 	traceDataHandler->setDebugProbe(traceProbeDevice);
 
 	if (!externalPath.empty())
@@ -466,10 +468,10 @@ bool Gui::openProject(std::string externalPath)
 
 		viewerDataHandler->setDebugProbe(debugProbeDevice);
 
-		if (traceDataHandler->getProbeSettings().debugProbe == 1)
-			traceProbeDevice = jlinkTraceProbe;
-		else
-			traceProbeDevice = stlinkTraceProbe;
+		//if (traceDataHandler->getProbeSettings().debugProbe == 1)
+		//	traceProbeDevice = jlinkTraceProbe;
+		//else
+		//	traceProbeDevice = stlinkTraceProbe;
 
 		traceDataHandler->setDebugProbe(traceProbeDevice);
 
