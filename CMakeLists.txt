@@ -52,7 +52,7 @@ if(WIN32)
     add_compile_options(-Wa,-mbig-obj)
 endif()
 
-set(JLINK_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third_party/jlink/inc/)
+#set(JLINK_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third_party/jlink/inc/)
 
 if(UNIX)
     include(FetchContent)
@@ -76,8 +76,11 @@ if(UNIX)
     #include(${CMAKE_MODULE_PATH}/Findlibusb.cmake)
     #find_package(libusb REQUIRED)
     find_package(glfw3 REQUIRED)
+
     #set(STLINK_LINUX ${CMAKE_CURRENT_SOURCE_DIR}/third_party/stlink/lib/linux/libstlink.a)
     #set(JLINK_LINUX ${CMAKE_CURRENT_SOURCE_DIR}/third_party/jlink/lib/linux/libjlinkarm.so.8)
+    set(NGSPICE_LINUX ${CMAKE_CURRENT_SOURCE_DIR}/third_party/ngspice/lib/linux/libmgspice.a)
+    
     set(INSTALL_PATH /usr/local/MCUViewer)
     set(LIB_INSTALL_PATH /usr/local/lib)
     set(DESKTOP_FILE_PATH /usr/share/applications)
@@ -91,8 +94,10 @@ if(UNIX)
 
         # TODO distinguish between ARM and x86 */
         #set(STLINK_MACOS ${CMAKE_CURRENT_SOURCE_DIR}/third_party/stlink/lib/macos/libstlink.a)
+        set(NGSPICE_MACOS ${CMAKE_CURRENT_SOURCE_DIR}/third_party/ngspice/lib/macos/libngspice.a)
     else()
         #set(STLINK_LINUX ${CMAKE_CURRENT_SOURCE_DIR}/third_party/stlink/lib/linux/libstlink.a)
+        set(NGSPICE_LINUX ${CMAKE_CURRENT_SOURCE_DIR}/third_party/ngspice/lib/linux/libngspice.a)
     endif()
 endif()
 
@@ -100,10 +105,13 @@ if(WIN32)
     enable_language("RC")
     set(ICON_RC "${CMAKE_CURRENT_SOURCE_DIR}/launch/install/Windows/icon.rc")
     set(GLFW3_WINDOWS ${CMAKE_CURRENT_SOURCE_DIR}/third_party/GLFW/lib/windows/glfw3.dll)
+
     #set(STLINK_WINDOWS ${CMAKE_CURRENT_SOURCE_DIR}/third_party/stlink/lib/windows/libstlink.a)
     #set(JLINK_WINDOWS ${CMAKE_CURRENT_SOURCE_DIR}/third_party/jlink/lib/windows/JLink_x64.dll)
     #set(LIBUSB_WINDOWS ${CMAKE_CURRENT_SOURCE_DIR}/third_party/libusb/lib/windows/libusb-1.0.dll)
     #set(LIBUSB_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third_party/libusb/inc/libusb-1.0)
+    set(NGSPICE_WINDOWS ${CMAKE_CURRENT_SOURCE_DIR}/third_party/ngspice/lib/windows/libngspice.a)
+
     set(SPDLOG_WINDOWS ${CMAKE_CURRENT_SOURCE_DIR}/third_party/spdlog/lib/windows/libspdlog.dll)
     set(GDB_WINDOWS ${CMAKE_CURRENT_SOURCE_DIR}/third_party/GDB/windows/gdb.exe)
     set(INSTALL_PATH bin)
@@ -130,8 +138,11 @@ set(PROJECT_SOURCES
     #${CMAKE_CURRENT_SOURCE_DIR}/third_party/stlink/inc/spdlogWrapper.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/PlotHandler/PlotHandler.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/TraceReader/TraceReader.cpp
+
     #${CMAKE_CURRENT_SOURCE_DIR}/src/TraceReader/StlinkTraceProbe.cpp
     #${CMAKE_CURRENT_SOURCE_DIR}/src/TraceReader/JlinkTraceProbe.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/TraceReader/NgspiceTraceProbe.cpp
+
     ${CMAKE_CURRENT_SOURCE_DIR}/src/GdbParser/GdbParser.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CSVStreamer/CSVStreamer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/VariableHandler/VariableHandler.cpp
@@ -208,8 +219,9 @@ target_include_directories(${EXECUTABLE} PRIVATE
 
 target_include_directories(${EXECUTABLE} SYSTEM PRIVATE
     #${CMAKE_CURRENT_SOURCE_DIR}/third_party/stlink/inc/
-    ${JLINK_INCLUDE_DIR}
-    ${LIBUSB_INCLUDE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/ngspice/inc/
+    #${JLINK_INCLUDE_DIR}
+    #${LIBUSB_INCLUDE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/imgui/backends/
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/imgui/
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/GLFW/inc/
@@ -262,7 +274,7 @@ add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
 
 install(TARGETS ${EXECUTABLE} RUNTIME DESTINATION ${INSTALL_PATH} COMPONENT applications)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/imgui.ini DESTINATION ${INSTALL_PATH})
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/third_party/stlink/chips DESTINATION ${INSTALL_PATH})
+#install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/third_party/stlink/chips DESTINATION ${INSTALL_PATH})
 
 if(WIN32)
     if(PRODUCTION)

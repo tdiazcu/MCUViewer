@@ -12,6 +12,7 @@
 #include "PlotHandler.hpp"
 #include "Statistics.hpp"
 //#include "StlinkDebugProbe.hpp"
+#include "NgspiceDebugProbe.hpp"
 #include "glfw3.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
@@ -99,12 +100,16 @@ void Gui::mainThread(std::string externalPath)
 	//jlinkProbe = std::make_shared<JlinkDebugProbe>(logger);
 	//stlinkProbe = std::make_shared<StlinkDebugProbe>(logger);
 	//debugProbeDevice = stlinkProbe;
+	ngspiceProbe = std::make_shared<NgspiceDebugProbe>(logger);
+	debugProbeDevice = ngspiceProbe;
 
 	viewerDataHandler->setDebugProbe(debugProbeDevice);
 
 	//jlinkTraceProbe = std::make_shared<JlinkTraceProbe>(logger);
 	//stlinkTraceProbe = std::make_shared<StlinkTraceProbe>(logger);
 	//traceProbeDevice = stlinkTraceProbe;
+	ngspiceTraceProbe = std::make_shared<NgspiceTraceProbe>(logger);
+	traceProbeDevice = ngspiceTraceProbe;
 
 	traceDataHandler->setDebugProbe(traceProbeDevice);
 
@@ -461,17 +466,19 @@ bool Gui::openProject(std::string externalPath)
 		logger->info("Project config path: {}", projectConfigPath);
 		/* TODO refactor */
 		devicesList.clear();
-		if (viewerDataHandler->getProbeSettings().debugProbe == 1)
-			debugProbeDevice = jlinkProbe;
-		else
-			debugProbeDevice = stlinkProbe;
+		//if (viewerDataHandler->getProbeSettings().debugProbe == 1)
+		//	debugProbeDevice = jlinkProbe;
+		//else
+		//	debugProbeDevice = stlinkProbe;
 
-		viewerDataHandler->setDebugProbe(debugProbeDevice);
+		debugProbeDevice = ngspiceProbe;
 
 		//if (traceDataHandler->getProbeSettings().debugProbe == 1)
 		//	traceProbeDevice = jlinkTraceProbe;
 		//else
 		//	traceProbeDevice = stlinkTraceProbe;
+
+		traceProbeDevice = ngspiceTraceProbe;
 
 		traceDataHandler->setDebugProbe(traceProbeDevice);
 

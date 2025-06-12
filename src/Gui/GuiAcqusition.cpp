@@ -79,16 +79,19 @@ void Gui::drawDebugProbes()
 		probeSettings.debugProbe = debugProbe;
 		modified = true;
 
-		if (probeSettings.debugProbe == 1)
-		{
-			debugProbeDevice = jlinkProbe;
-			shouldListDevices = true;
-		}
-		else
-		{
-			debugProbeDevice = stlinkProbe;
-			shouldListDevices = true;
-		}
+		//if (probeSettings.debugProbe == 1)
+		//{
+		//	debugProbeDevice = jlinkProbe;
+		//	shouldListDevices = true;
+		//}
+		//else
+		//{
+		//	debugProbeDevice = stlinkProbe;
+		//	shouldListDevices = true;
+		//}
+		debugProbeDevice = ngspiceProbe;
+		shouldListDevices = true;
+
 		SNptr = 0;
 	}
 	GuiHelper::drawTextAlignedToSize("Debug probe S/N:", alignment);
@@ -263,16 +266,20 @@ void Gui::drawTraceProbes()
 		probeSettings.debugProbe = debugProbe;
 		modified = true;
 
-		if (probeSettings.debugProbe == 1)
-		{
-			traceProbeDevice = jlinkTraceProbe;
-			shouldListDevices = true;
-		}
-		else
-		{
-			traceProbeDevice = stlinkTraceProbe;
-			shouldListDevices = true;
-		}
+		//if (probeSettings.debugProbe == 1)
+		//{
+		//	traceProbeDevice = jlinkTraceProbe;
+		//	shouldListDevices = true;
+		//}
+		//else
+		//{
+		//	traceProbeDevice = stlinkTraceProbe;
+		//	shouldListDevices = true;
+		//}
+
+		traceProbeDevice = ngspiceTraceProbe;
+		shouldListDevices = true;
+
 		SNptr = 0;
 	}
 	GuiHelper::drawTextAlignedToSize("Debug probe S/N:", alignment);

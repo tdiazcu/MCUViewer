@@ -7,14 +7,19 @@
 
 class ITraceProbe
 {
-   public:
-	typedef struct
+public:
+	typedef struct ip4_ {
+		uint32_t address = 0;
+		uint32_t port = 0;
+	} ip4_t;
+
+   typedef struct
 	{
-		uint32_t debugProbe = 0;
+		uint32_t    debugProbe = 0;
 		std::string serialNumber = "";
 		std::string device = "";
-		uint32_t speedkHz = 10000;
-
+		uint32_t    speedkHz = 10000;
+		ip4_t       ip4 = {0, 0};
 	} TraceProbeSettings;
 
 	virtual ~ITraceProbe() = default;

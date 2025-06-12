@@ -1,19 +1,19 @@
-#ifndef _StlinkDebugProbe_HPP
-#define _StlinkDebugProbe_HPP
+#ifndef _NgspiceDebugProbe_HPP
+#define _NgspiceDebugProbe_HPP
 
 #include <mutex>
 #include <string>
 #include <vector>
 
 #include "IDebugProbe.hpp"
-#include "stlink.h"
+#include "ngspice.h"
 
 #include "spdlog/spdlog.h"
 
-class StlinkDebugProbe : public IDebugProbe
+class NgspiceDebugProbe : public IDebugProbe
 {
    public:
-	StlinkDebugProbe(spdlog::logger* logger);
+	NgspiceDebugProbe(spdlog::logger* logger);
 	bool startAcqusition(const DebugProbeSettings& probeSettings, std::vector<std::pair<uint32_t, uint8_t>>& addressSizeVector, uint32_t samplingFreqency) override;
 	bool stopAcqusition() override;
 	bool isValid() const override;
@@ -27,7 +27,7 @@ class StlinkDebugProbe : public IDebugProbe
 	std::vector<std::string> getConnectedDevices() override;
 
    private:
-	stlink_t*       ngspice = nullptr;
+	ngspice_t*      ngspice = nullptr;
 	spdlog::logger* logger;
 };
 
